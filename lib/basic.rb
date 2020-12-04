@@ -5,7 +5,7 @@ module Basic
     if status
       puts "all fine"
     else
-      Basic.make_dir_and_cd(dir)
+      raise Exception.new "This dir is nonexistent"
     end
   end
 
