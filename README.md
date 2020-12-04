@@ -8,14 +8,50 @@
 
 ## 2.0 Цели и задачи
 
-### 2.1
+### 2.1 Цели
 
 *Цели:* Предложить структуру каталогов и реализовать автоматическое выполнение тестового сценария.
 
-### 2.2
+### 2.2 Задачи
 
 *Задачи:* Составить тест-план, написать сами тесты, провести пост-тесты и сделать баг-репорт
 
- 
+## 3.0 Стратегия тестирования 
 
+Для начала сымитируем действия пользователя и попробуем зайти в какую-нибудь папку. При успешном выполнении выведем "All fine". Если пользователь захочет зайти в несуществующую папку, поднимем исключение.
 
+## 3.1 Unit тестирование
+
+Так как данный сценарий не требует интеграционных тестов, напишем три юнит теста с помощью гема `rspec`.
+
+*Код тестового модуля:*
+
+```ruby
+module Basic
+
+  def Basic.cd_into(dir="")
+    status = system("cd", dir)
+    if status
+      puts "all fine"
+    else
+      raise Exception.new "This dir is nonexistent"
+    end
+  end
+
+  def Basic.make_dir_and_cd(dir)
+      status = system("mkdir", dir)
+      if status
+        system("cd", dir)
+        puts "everything is still fine"
+        system("rmdir", dir)
+      end
+  end
+end
+```
+
+*Первый сценарий:* Пользователь пытается зайти в существующую папку:
+```ruby
+    it "cd`s into an existing path" do
+      expect{Basic.cd_into("lib")}.to output("all fine\n").to_stdout
+    end
+```
