@@ -1,12 +1,19 @@
-require 'open3'
+module Basic
 
-module Basic 
-
-  def Basic.cd_into
-    puts 'ok'    
+  def Basic.cd_into(dir="")
+    status = system("cd #{dir}")
+    if status
+      puts "all fine"
+    else
+      Basic.make_dir_and_cd(dir)
+    end
   end
 
-  def Basic.make_dir
-
+  def Basic.make_dir_and_cd(dir)
+      status = system("mkdir #{dir} && cd #{dir}")
+      if status
+        puts "everything is still fine"
+        system("rmdir #{dir}")
+      end
   end
 end
