@@ -48,10 +48,19 @@ module Basic
   end
 end
 ```
+Первый метод данного модуля запускает комманду из стандартного системного коммандного интерпретатора и поднимает ошибку, если если пользователь решит зайти в несуществующую папку. Второй же создан для создания и входа в свежую директорию.
 
 *Первый сценарий:* Пользователь пытается зайти в существующую папку:
 ```ruby
-    it "cd`s into an existing path" do
-      expect{Basic.cd_into("lib")}.to output("all fine\n").to_stdout
-    end
+it "cd`s into an existing path" do
+  expect{Basic.cd_into("lib")}.to output("all fine\n").to_stdout
+end
+```
+У него все удачно выходит и он получает доступ к заветной директории. Программа выводит "All fine"
+
+*Второй сценарий:* Пользователь заходит в несуществующую папку и получает исключение:
+```ruby
+it "cd's into an unexistent path" do
+  expect{Basic.cd_into("kk")}.to raise_error
+end
 ```
