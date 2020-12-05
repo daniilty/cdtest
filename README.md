@@ -86,9 +86,10 @@ it "it doing good under the stress" do
   }
 end
 ```
+```
 Finished in 7.65 seconds (files took 0.20307 seconds to load)
 4 examples, 0 failures
-
+```
 Результаты довольно неплохие.
 
 ## 4.0 Требования к окружению
